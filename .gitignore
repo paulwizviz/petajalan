@@ -1,1 +1,4 @@
 .DS_Store
+
+web/reactjs/node_modules
+web/reactjs/public
