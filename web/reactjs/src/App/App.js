@@ -15,24 +15,34 @@
 //import React, { useState } from 'react';
 import React from 'react';
 
-// import { makeStyles } from '@mui/styles';
-// import { Button } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+
 
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 // import axios from 'axios';
 
-// const useStyles = makeStyles(() => ({
-//     root: {
-//         '& > *': {
-//             margin: '10px',
-//             width: '25ch',
-//         },
-//     },
-// }));
+const useStyles = makeStyles(() => ({
+    root: {
+        '& > *': {
+            margin: '10px',
+            width: '25ch',
+        },
+    },
+}));
 
 const App = () => {
-    // const classes = useStyles();
+    const classes = useStyles();
 
     // const [result, setResult] = useState('Waiting for results ...');
 
@@ -45,28 +55,67 @@ const App = () => {
     //     }
     // };
 
-    const position = [51.505, -0.09];
+    const position = [54.9717, -1.6521];
 
     return (
-        // <div classes={classes}>
-        <div>
-   
-            <MapContainer center={position} zoom={15} scrollWheelZoom={false}  style={{ width: '100%', height: '500px' }}>
-                <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </MapContainer>
 
-      
-            {/* <div>
-                <Button onClick={sendHandler}>Click me to get result from backend</Button>
-                <h1>{
-                    `${JSON.stringify(result)}`
-                }</h1>
-            </div> */}
+        <Container classes={classes}>
+            <Grid container spacing={2}>
+                <Grid xs={8}>
+                    <MapContainer center={position} zoom={15} scrollWheelZoom={false} style={{ width: '100%', height: '500px' }}>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                    </MapContainer>
+                </Grid>
+                <Grid xs={4}>
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            Tesla
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                                Model 1
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small">Learn More</Button>
+                        </CardActions>
+                    </Card>
+                    <Divider />
+                    <Card sx={{ minWidth: 275 }}>
+                        <CardContent>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                            BYD
+                            </Typography>
+                            <Typography variant="h5" component="div">
+                                Model 1
+                            </Typography>
+                        </CardContent>
+                        <CardActions>
+                            <Button size="small">Learn More</Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            </Grid>
+            <Grid container spacing={2}>
+                <Grid xs={12}>
+                    <Typography variant="h5" component="div">
+                        Please specify your daily driving route by indicating your start and end destination
+                    </Typography>
+                    <TextField id="outlined-basic" label="From" variant="outlined" />
+                    <TextField id="filled-basic" label="To" variant="filled" />
+                </Grid>
+            </Grid>
+        </Container>
 
-        </div>
+    // {/* <div>
+    //     <Button onClick={sendHandler}>Click me to get result from backend</Button>
+    //     <h1>{
+    //         `${JSON.stringify(result)}`
+    //     }</h1>
+    // </div> */}
     );
 };
 
