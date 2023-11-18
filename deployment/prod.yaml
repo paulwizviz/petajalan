@@ -12,17 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# node build phase
+# In this phase, we pull artefacts to build ReactJS webapp for
+# development
+
 version: '3.4'
 
 services:
 
-    container:
-        build:
-            context: ../
-            dockerfile: ./build/prod.dockerfile # Modify this to your requirements
-            args:
-                NODE_VER: 13.10.1
-                GO_VER: 1.21.3
-                WEB_FRAMEWORK: reactjs
-                APP_NAME: petajalan # An app name for your choice
-        image: ${APP_IMAGE_NAME:-petajalan/petajalan:current}
+  app:
+    image: ${APP_IMAGE_NAME}
+    container_name: ${APP_CONTAINER_NAME}
+    command: /petajalan
+    ports:
+      - 3030:3030
+    networks:
+      - local
+
+networks:
+  local:
+    name: $NETWORK

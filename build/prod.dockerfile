@@ -19,32 +19,20 @@
 ARG NODE_VER
 ARG GO_VER
 
-FROM node:${NODE_VER} as npminstall
-
-ARG WEB_FRAMEWORK
-
-WORKDIR /opt
-
-COPY ./web/${WEB_FRAMEWORK}/dep.sh ./dep.sh
-COPY ./web/${WEB_FRAMEWORK}/package.json ./package.json
-
-RUN ./dep.sh
-
 FROM node:${NODE_VER} as nodebuild
 
 ARG WEB_FRAMEWORK
 
 WORKDIR /opt
 
-COPY --from=npminstall /opt/node_modules ./node_modules
-COPY --from=npminstall /opt/package-lock.json ./package-lock.json
-COPY --from=npminstall /opt/package.json /opt/package.json
+COPY ./web/${WEB_FRAMEWORK}/package-lock.json ./package-lock.json
+COPY ./web/${WEB_FRAMEWORK}/package.json /opt/package.json
 COPY ./web/${WEB_FRAMEWORK}/webpack /opt/webpack
 COPY ./web/${WEB_FRAMEWORK}/.babelrc /opt/.babelrc
 COPY ./web/${WEB_FRAMEWORK}/images /opt/images
 COPY ./web/${WEB_FRAMEWORK}/src /opt/src
 
-RUN npm run build
+RUN npm install && npm run build
 
 # Go build phase
 # Utilising a go packaging tool github.com/GeertJohan/go.rice
@@ -58,16 +46,16 @@ WORKDIR /opt
 
 COPY ./cmd ./cmd
 COPY ./internal ./internal
-COPY --from=nodebuild /opt/public/index.html ./cmd/goreact/internal/server/index.html
-COPY --from=nodebuild /opt/public/bundle.js ./cmd/goreact/internal/server/bundle.js
-COPY --from=nodebuild /opt/public/images ./cmd/goreact/internal/server/images
+COPY --from=nodebuild /opt/public/index.html ./internal/handler/index.html
+COPY --from=nodebuild /opt/public/bundle.js ./internal/handler/bundle.js
+COPY --from=nodebuild /opt/public/images ./internal/handler/images
 
 COPY ./go.mod ./go.mod
 COPY ./go.sum ./go.sum
 
 # Replace app name {./cmd/goreact} here with name of your choice {./cmd/<your-choice>}
 RUN go mod download && \
-    env CGO_ENABLED=0 env GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o ./build/package/container/${APP_NAME} ./cmd/goreact
+    env CGO_ENABLED=0 env GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o ./build/${APP_NAME} ./cmd/petajalan
 
 # Pack linux artefact into scratch container
 FROM scratch
@@ -75,6 +63,6 @@ FROM scratch
 ARG APP_NAME
 
 # Replace app name {goreact} here with name of your choice
-COPY --from=gobuild /opt/build/package/container/${APP_NAME} /${APP_NAME}
+COPY --from=gobuild /opt/build/${APP_NAME} /${APP_NAME}
 
 # CMD /${APP_NAME} start ui

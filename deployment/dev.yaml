@@ -16,13 +16,12 @@ version: '3.4'
 
 services:
 
-    container:
-        build:
-            context: ../
-            dockerfile: ./build/prod.dockerfile # Modify this to your requirements
-            args:
-                NODE_VER: 13.10.1
-                GO_VER: 1.21.3
-                WEB_FRAMEWORK: reactjs
-                APP_NAME: petajalan # An app name for your choice
-        image: ${APP_IMAGE_NAME:-petajalan/petajalan:current}
+    dev:
+        image: node:13.10.1
+        container_name: ${DEV_CONTAINER_NAME}
+        working_dir: /opt/reactjs
+        command: npm run dev:run
+        ports:
+            - 3030:3030
+        volumes:
+            - $PWD/web/reactjs:/opt/reactjs

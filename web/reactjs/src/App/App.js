@@ -17,19 +17,20 @@ import React from 'react';
 
 import { makeStyles } from '@mui/styles';
 
+import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Divider from '@mui/material/Divider';
-import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-
 import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+
+import { EVPoint } from '../components';
+
+
 // import axios from 'axios';
 
 const useStyles = makeStyles(() => ({
@@ -61,7 +62,12 @@ const App = () => {
 
         <Container classes={classes}>
             <Grid container spacing={2}>
-                <Grid xs={8}>
+                <Grid item xs={12}>
+                    <Typography variant="h3" component="div">
+                        Should I switch to an Electric Vehicle?
+                    </Typography>
+                </Grid>
+                <Grid item xs={8}>
                     <MapContainer center={position} zoom={15} scrollWheelZoom={false} style={{ width: '100%', height: '500px' }}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -69,43 +75,21 @@ const App = () => {
                         />
                     </MapContainer>
                 </Grid>
-                <Grid xs={4}>
-                    <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Tesla
-                            </Typography>
-                            <Typography variant="h5" component="div">
-                                Model 1
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions>
-                    </Card>
-                    <Divider />
-                    <Card sx={{ minWidth: 275 }}>
-                        <CardContent>
-                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            BYD
-                            </Typography>
-                            <Typography variant="h5" component="div">
-                                Model 1
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button size="small">Learn More</Button>
-                        </CardActions>
-                    </Card>
+                <Grid item xs={4}>
+                    {
+                        ['location 1','location 2'].map( i => <EVPoint key={i} location={i}/>)
+                    }
                 </Grid>
-            </Grid>
-            <Grid container spacing={2}>
-                <Grid xs={12}>
-                    <Typography variant="h5" component="div">
+                <Grid item xs={12}>
+                    <Box>
+                        <Paper elevation={0}>
+                            <Typography variant="p" component="div">
                         Please specify your daily driving route by indicating your start and end destination
-                    </Typography>
-                    <TextField id="outlined-basic" label="From" variant="outlined" />
-                    <TextField id="filled-basic" label="To" variant="filled" />
+                            </Typography>
+                            <TextField id="outlined-basic" label="From" variant="outlined" />
+                            <TextField id="filled-basic" label="To" variant="filled" />
+                        </Paper>
+                    </Box>
                 </Grid>
             </Grid>
         </Container>
