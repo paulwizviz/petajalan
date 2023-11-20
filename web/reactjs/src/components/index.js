@@ -13,3 +13,4 @@
 // limitations under the License.
 
 export {default as EVPoint} from './EVPoint';
+export {default as MapComponent} from './MapComponent';

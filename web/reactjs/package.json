@@ -60,6 +60,7 @@
     "ecstatic": "^4.1.4",
     "history": "^5.3.0",
     "leaflet": "^1.9.4",
+    "leaflet-routing-machine": "^3.2.12",
     "prop-types": "^15.8.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

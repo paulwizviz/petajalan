@@ -47,7 +47,7 @@
         "react"
     ],
     "rules": {
-        "no-console": 1,
+        "no-console": 0,
         "react/no-unknown-property": [
             2,
             {

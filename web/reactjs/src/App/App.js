@@ -25,10 +25,10 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-import { MapContainer, TileLayer } from 'react-leaflet';
+//import { MapContainer, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { EVPoint } from '../components';
+import { EVPoint, MapComponent } from '../components';
 
 
 // import axios from 'axios';
@@ -56,7 +56,7 @@ const App = () => {
     //     }
     // };
 
-    const position = [54.9717, -1.6521];
+    // const position = [54.9717, -1.6521];
 
     return (
 
@@ -68,12 +68,13 @@ const App = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={8}>
-                    <MapContainer center={position} zoom={15} scrollWheelZoom={false} style={{ width: '100%', height: '500px' }}>
+                    {/* <MapContainer center={position} zoom={15} scrollWheelZoom={false} style={{ width: '100%', height: '500px' }}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                    </MapContainer>
+                    </MapContainer> */}
+                    <MapComponent/>
                 </Grid>
                 <Grid item xs={4}>
                     {
