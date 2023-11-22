@@ -12,4 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export {default as EVPoint} from './EVPoint';
+export {default as MainBoard} from './main/MainBoard';

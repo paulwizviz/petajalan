@@ -44,7 +44,7 @@ function dev(){
             docker-compose -f ./deployment/dev.yaml down
             ;;
         *)
-            echo "Usage: ${SCRIPT} $0 command
+            echo "Usage: ${SCRIPT} dev command
             
 command:
     start development
@@ -58,27 +58,19 @@ function prod(){
     cmd="$1"
     case $cmd in
         "start")
-            run
+            docker-compose -f ./deployment/prod.yaml up
             ;;
         "stop")
-           stop
+            docker-compose -f ./deployment/prod.yaml down
             ;;
         *)
-            echo "Usage: ${SCRIPT} $0 command
+            echo "Usage: ${SCRIPT} prod command
 
 command:
     start development
     stop  development" 
             ;;
     esac
-}
-
-function run(){
-    docker-compose -f ./deployment/prod.yaml up
-}
-
-function stop(){
-    docker-compose -f ./deployment/prod.yaml down
 }
 
 message="Usage: $0 command
