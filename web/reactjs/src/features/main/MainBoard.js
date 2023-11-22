@@ -29,7 +29,8 @@ import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 
 import { EVPoint } from '../../components';
-import MapComponent from './MapComponent';
+//import MapComponent from './MapComponent';
+import MapTest from './MapTest';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -55,17 +56,14 @@ const MainBoard = () => {
         setFromError(false);
         setToError(false);
 
-        if (from === ''){
+        if (from == ''){
             setFromError(true);
         }
 
-        if (to === ''){
+        if (to == ''){
             setToError(true);
         }
 
-        if (from && to ){
-            console.log(from, to);
-        }
     };
 
     return (
@@ -77,7 +75,10 @@ const MainBoard = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={8}>
-                    <MapComponent start={from} end={to} />
+                    {
+                    /* <MapComponent start={from} end={to} /> */
+                    }
+                    <MapTest start={from} end={to}/>
                 </Grid>
                 <Grid item xs={4}>
                     {
